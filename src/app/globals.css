@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.text-center {
+  padding: 10px;
+}
+
+.loader {
+  display: flex;
+  width: 500px;
+  height: 430px;
+  align-items: center;
+  justify-content: center;
+}
