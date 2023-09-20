@@ -4,18 +4,22 @@ import React, { useEffect, useState } from 'react';
 const CatInfo = () => {
     const [loading, setLoading] = useState(false)
     const [catName, setCatName] = useState('')
+    const [minWeight, setMinWeight] = useState('')
+    const [minLife, setMinLife] = useState('')
     const [catData, setCatData] = useState<any>([]);
 
     const getData = () => {
-        const apiUrl = `https://api.api-ninjas.com/v1/cats?name=${catName}`;
-        setLoading(true)
-        fetch(apiUrl, {
-            method: 'GET',
-            headers: { 'X-Api-Key': 'F9PVVXjHm1XJu5ZsM83yjg==35VDMZSc89cRlzJp' },
-        })
-            .then(response => response.json())
-            .then(data => { setCatData(data); setLoading(false) })
-            .catch(error => setLoading(false));
+        if (catName.length > 0 || minLife.length > 0 || minWeight.length > 0) {
+            const apiUrl = `https://api.api-ninjas.com/v1/cats?name=${catName}&min_weight=${minWeight}&min_life_expectancy=${minLife}`;
+            setLoading(true)
+            fetch(apiUrl, {
+                method: 'GET',
+                headers: { 'X-Api-Key': 'F9PVVXjHm1XJu5ZsM83yjg==35VDMZSc89cRlzJp' },
+            })
+                .then(response => response.json())
+                .then(data => { setCatData(data); setLoading(false) })
+                .catch(error => setLoading(false));
+        }
     }
 
     return (
@@ -25,10 +29,24 @@ const CatInfo = () => {
                 <div className="flex space-x-2 mt-2">
                     <input
                         type="text"
-                        placeholder="Enter a cat name"
-                        className="bg-white text-gray-800 p-3 rounded-l-lg w-full focus:outline-none focus:ring focus:border-blue-300 shadow-md"
+                        placeholder="Enter a Cat name"
+                        className="bg-white text-gray-800 p-3 rounded w-full focus:outline-none focus:ring focus:border-blue-300 shadow-md"
                         value={catName}
                         onChange={(e) => setCatName(e.target.value)}
+                    />
+                    <input
+                        type="text"
+                        placeholder="Enter a Cat Min Life"
+                        className="bg-white text-gray-800 p-3 rounded w-full focus:outline-none focus:ring focus:border-blue-300 shadow-md"
+                        value={minLife}
+                        onChange={(e) => setMinLife(e.target.value)}
+                    />
+                    <input
+                        type="text"
+                        placeholder="Enter a Cat Min Weight"
+                        className="bg-white text-gray-800 p-3 rounded w-full focus:outline-none focus:ring focus:border-blue-300 shadow-md"
+                        value={minWeight}
+                        onChange={(e) => setMinWeight(e.target.value)}
                     />
                     <button
                         type='button'
@@ -155,8 +173,8 @@ const CatInfo = () => {
                                     </div>
 
                                     <div>
-                                 
-                                 
+
+
                                         <p>PLease Enter the Name </p>
                                     </div>
                                 </div>
